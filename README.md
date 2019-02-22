@@ -1,5 +1,9 @@
 # Reserva
 
+Trello: https://trello.com/b/1gWZmDvJ
+
+---
+
 To start your Phoenix server:
 
   * Install dependencies with `mix deps.get`
