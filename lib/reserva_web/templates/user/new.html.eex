@@ -1,0 +1,7 @@
+<%= form_for @user, Routes.user_path(@conn, :create), fn f -> %>
+  <label>
+    USBID: <%= text_input f, :usbid %>
+  </label>
+
+  <%= submit "Submit" %>
+<% end %>
