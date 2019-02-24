@@ -23,6 +23,6 @@ defmodule ReservaWeb.Router do
   scope "/", ReservaWeb do
     pipe_through [:browser, :auth]
 
-    get "/bob", PageController, :index
+    get "/login", UserController, :login
   end
 end

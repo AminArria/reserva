@@ -2,6 +2,10 @@ defmodule ReservaWeb.UserController do
   use ReservaWeb, :controller
   alias Reserva.User
 
+  def login(conn, _params) do
+    redirect conn, to: Routes.page_path(conn, :index)
+  end
+
   def new(conn, _params) do
     usbid = get_session(conn, :cas_user)
     user = User.changeset(%User{}, %{usbid: usbid})
