@@ -3,5 +3,7 @@
     USBID: <%= text_input f, :usbid %>
   </label>
 
+  <%= hidden_input f, :type %>
+
   <%= submit "Submit" %>
 <% end %>
