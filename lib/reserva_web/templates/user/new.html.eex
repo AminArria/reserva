@@ -3,6 +3,18 @@
     USBID: <%= text_input f, :usbid %>
   </label>
 
+  <label>
+    Email: <%= text_input f, :email %>
+  </label>
+
+  <label>
+    Nombre: <%= text_input f, :name %>
+  </label>
+
+  <label>
+    Telefono: <%= text_input f, :phone_number %>
+  </label>
+
   <%= hidden_input f, :type %>
 
   <%= submit "Submit" %>

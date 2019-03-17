@@ -8,7 +8,8 @@ defmodule ReservaWeb.UserController do
 
   def new(conn, _params) do
     usbid = get_session(conn, :cas_user)
-    user = User.changeset(%User{}, %{usbid: usbid})
+    email = get_email(usbid)
+    user = User.changeset(%User{}, %{usbid: usbid, email: email})
     render conn, "new.html", user: user
   end
 
@@ -30,5 +31,9 @@ defmodule ReservaWeb.UserController do
       false ->
         "faculty"
     end
+  end
+
+  defp get_email(usbid) do
+    usbid <> "@usb.ve"
   end
 end

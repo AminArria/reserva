@@ -6,6 +6,9 @@ defmodule Reserva.User do
   schema "users" do
     field :usbid, :string
     field :type, :string
+    field :name, :string
+    field :email, :string
+    field :phone_number, :string
 
     timestamps()
   end
@@ -13,9 +16,11 @@ defmodule Reserva.User do
   @doc false
   def changeset(user, attrs) do
     user
-    |> cast(attrs, [:usbid, :type])
-    |> validate_required([:usbid, :type])
+    |> cast(attrs, [:usbid, :type, :name, :email, :phone_number])
+    |> validate_required([:usbid, :type, :name, :email])
     |> validate_inclusion(:type, ["admin", "member", "faculty", "student"])
+    |> validate_format(:email, ~r/@/)
+    |> validate_format(:phone_number, ~r/^\d+/)
   end
 
   def create_user(attrs) do
