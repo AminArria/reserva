@@ -1,22 +1,27 @@
 <%= form_for @user, Routes.user_path(@conn, :update, @id), fn f -> %>
   <label>
     USBID: <%= text_input f, :usbid %>
+    <%= error_tag @user.errors[:usbid] %>
   </label>
 
   <label>
     Tipo: <%= select f, :type, ["student", "faculty", "member", "admin"] %>
+    <%= error_tag @user.errors[:type] %>
   </label>
 
   <label>
     Email: <%= text_input f, :email %>
+    <%= error_tag @user.errors[:email] %>
   </label>
 
   <label>
     Nombre: <%= text_input f, :name %>
+    <%= error_tag @user.errors[:name] %>
   </label>
 
   <label>
     Telefono: <%= text_input f, :phone_number %>
+    <%= error_tag @user.errors[:phone_number] %>
   </label>
 
   <%= submit "Submit" %>
