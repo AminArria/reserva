@@ -1,0 +1,23 @@
+<%= form_for @user, Routes.user_path(@conn, :update, @id), fn f -> %>
+  <label>
+    USBID: <%= text_input f, :usbid %>
+  </label>
+
+  <label>
+    Tipo: <%= select f, :type, ["student", "faculty", "member", "admin"] %>
+  </label>
+
+  <label>
+    Email: <%= text_input f, :email %>
+  </label>
+
+  <label>
+    Nombre: <%= text_input f, :name %>
+  </label>
+
+  <label>
+    Telefono: <%= text_input f, :phone_number %>
+  </label>
+
+  <%= submit "Submit" %>
+<% end %>

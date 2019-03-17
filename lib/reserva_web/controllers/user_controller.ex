@@ -24,6 +24,28 @@ defmodule ReservaWeb.UserController do
     end
   end
 
+  def edit(conn, %{"id" => id}) do
+    user =
+      User.get_user(id)
+      |> User.changeset(%{})
+
+    render conn, "edit.html", user: user, id: id
+  end
+
+  def update(conn, %{"id" => id, "user" => user_params}) do
+    user = User.get_user(id)
+
+    case User.update_user(user, user_params) do
+      {:ok, user} ->
+        user_changeset = User.changeset(user, %{})
+        put_flash(conn, :info, "Update was successfull")
+        |> render("edit.html", user: user_changeset, id: id)
+      {:error, changeset} ->
+        put_flash(conn, :error, "Update failed")
+        |> render("edit.html", user: changeset, id: id)
+    end
+  end
+
   defp get_type(usbid) do
     case String.match?(usbid, ~r/\d{2}-\d{5}/) do
       true ->
