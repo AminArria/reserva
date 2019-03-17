@@ -13,6 +13,7 @@ defmodule ReservaWeb.UserController do
   end
 
   def create(conn, %{"user" => user_params = %{"usbid" => usbid}}) do
+    ^usbid = get_session(conn, :cas_user)
     user_params_type = %{user_params | "type" => get_type(usbid)}
     case User.create_user(user_params_type) do
       {:ok, _} ->
