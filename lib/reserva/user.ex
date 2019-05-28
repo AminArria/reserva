@@ -27,4 +27,13 @@ defmodule Reserva.User do
     changeset(%User{}, attrs)
     |> Repo.insert()
   end
+
+  def update_user(user, attrs) do
+    changeset(user, attrs)
+    |> Repo.update()
+  end
+
+  def get_user(id) do
+    Repo.get(User, id)
+  end
 end
