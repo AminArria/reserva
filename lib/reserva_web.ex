@@ -21,6 +21,9 @@ defmodule ReservaWeb do
     quote do
       use Phoenix.Controller, namespace: ReservaWeb
 
+      # Import convenience functions from controllers
+      import ReservaWeb.Plugs.Authorization, only: [is_admin?: 1, is_member?: 1]
+
       import Plug.Conn
       import ReservaWeb.Gettext
       alias ReservaWeb.Router.Helpers, as: Routes
@@ -35,6 +38,7 @@ defmodule ReservaWeb do
 
       # Import convenience functions from controllers
       import Phoenix.Controller, only: [get_flash: 1, get_flash: 2, view_module: 1]
+      import ReservaWeb.Plugs.Authorization, only: [is_admin?: 1, is_member?: 1]
 
       # Use all HTML functionality (forms, tags, etc)
       use Phoenix.HTML

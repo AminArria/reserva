@@ -2,6 +2,8 @@ defmodule ReservaWeb.UserController do
   use ReservaWeb, :controller
   alias Reserva.User
 
+  plug ReservaWeb.Plugs.Authorization when action in [:edit, :update]
+
   def login(conn, _params) do
     redirect conn, to: Routes.page_path(conn, :index)
   end
@@ -34,8 +36,8 @@ defmodule ReservaWeb.UserController do
 
   def update(conn, %{"id" => id, "user" => user_params}) do
     user = User.get_user(id)
-
-    case User.update_user(user, user_params) do
+    parsed_user_params = parse_params(conn.assigns.current_user, user_params)
+    case User.update_user(user, parsed_user_params) do
       {:ok, user} ->
         user_changeset = User.changeset(user, %{})
         put_flash(conn, :info, "Update was successfull")
@@ -57,5 +59,13 @@ defmodule ReservaWeb.UserController do
 
   defp get_email(usbid) do
     usbid <> "@usb.ve"
+  end
+
+  defp parse_params(current_user, user_params) do
+    if is_admin?(current_user) do
+      user_params
+    else
+      Map.delete(user_params, "type")
+    end
   end
 end

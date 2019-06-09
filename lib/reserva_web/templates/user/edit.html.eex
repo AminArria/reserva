@@ -4,10 +4,12 @@
     <%= error_tag @user.errors[:usbid] %>
   </label>
 
-  <label>
-    Tipo: <%= select f, :type, ["student", "faculty", "member", "admin"] %>
-    <%= error_tag @user.errors[:type] %>
-  </label>
+  <% if @current_user.type == "admin" do %>
+    <label>
+      Tipo: <%= select f, :type, ["student", "faculty", "member", "admin"] %>
+      <%= error_tag @user.errors[:type] %>
+    </label>
+  <% end %>
 
   <label>
     Email: <%= text_input f, :email %>
