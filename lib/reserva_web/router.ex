@@ -17,12 +17,13 @@ defmodule ReservaWeb.Router do
     pipe_through :browser
 
     get "/", PageController, :index
-    resources "/users", UserController, only: [:new, :create, :edit, :update]
+    resources "/users", UserController, only: [:new, :create]
   end
 
   scope "/", ReservaWeb do
     pipe_through [:browser, :auth]
 
     get "/login", UserController, :login
+    resources "/users", UserController, only: [:edit, :update]
   end
 end
