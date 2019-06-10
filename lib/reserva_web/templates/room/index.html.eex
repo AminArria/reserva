@@ -1,0 +1,24 @@
+<h1>Salas</h1>
+
+<%= for room <- @rooms_active do %>
+  <hr>
+  <h3>Sala <%= room.name %></h3>
+  <p>Ubicacion: <%= room.location %>
+  <p>Total computadoras: <%= room.computers_amount %>
+  <p>Computadoras disponibles: <%= room.available_computers_amount %>
+  <p>Computadoras dañadas: <%= room.unavailable_computers_amount %>
+  <p>Videobem: <%= if room.has_videobeam, do: "Si", else: "No" %>
+<% end %>
+
+<h2>Salas Desactivadas</h2>
+
+<%= for room <- @rooms_inactive do %>
+  <% IO.inspect(room) %>
+  <hr>
+  <h3>Sala <%= room.name %></h3>
+  <p>Ubicacion: <%= room.location %>
+  <p>Total computadoras: <%= room.computers_amount %>
+  <p>Computadoras disponibles: <%= room.available_computers_amount %>
+  <p>Computadoras dañadas: <%= room.unavailable_computers_amount %>
+  <p>Videobem: <%= if room.has_videobeam, do: "Si", else: "No" %>
+<% end %>

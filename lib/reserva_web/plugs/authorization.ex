@@ -1,7 +1,5 @@
 defmodule ReservaWeb.Plugs.Authorization do
   import Plug.Conn
-  alias Reserva.Repo
-  alias Reserva.User
   alias ReservaWeb.Router.Helpers, as: Routes
 
   def init(options) do
@@ -47,5 +45,22 @@ defmodule ReservaWeb.Plugs.Authorization do
       true ->
         false
     end
+  end
+
+  defp authorized?(ReservaWeb.RoomController, :new, current_user, _) do
+    is_admin?(current_user)
+    true
+  end
+  defp authorized?(ReservaWeb.RoomController, :create, current_user, _) do
+    is_admin?(current_user)
+    true
+  end
+  defp authorized?(ReservaWeb.RoomController, :edit, current_user, _) do
+    is_member?(current_user)
+    true
+  end
+  defp authorized?(ReservaWeb.RoomController, :update, current_user, _) do
+    is_member?(current_user)
+    true
   end
 end

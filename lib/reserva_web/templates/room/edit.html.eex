@@ -1,0 +1,38 @@
+<%= form_for @room, Routes.room_path(@conn, :update, @id), fn f -> %>
+
+  <label>
+    Nombre: <%= text_input f, :name %>
+    <%= error_tag f.errors[:name] %>
+  </label>
+
+  <label>
+    Ubicacion: <%= text_input f, :location %>
+    <%= error_tag f.errors[:location] %>
+  </label>
+
+  <%= if is_admin?(@current_user) do %>
+    <label>
+      Activa?
+      Si<%= radio_button f, :active, true %>
+      No<%= radio_button f, :active, false %>
+    </label>
+  <% end %>
+
+  <label>
+    Total computadoras: <%= number_input f, :computers_amount %>
+    <%= error_tag f.errors[:computers_amount] %>
+  </label>
+
+  <label>
+    Total computadoras funcionales: <%= number_input f, :available_computers_amount %>
+    <%= error_tag f.errors[:available_computers_amount] %>
+  </label>
+
+  <label>
+    Videobeam?
+    Si<%= radio_button f, :has_videobeam, true %>
+    No<%= radio_button f, :has_videobeam, false %>
+  </label>
+
+  <%= submit "Submit" %>
+<% end %>
