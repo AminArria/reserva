@@ -17,7 +17,7 @@ defmodule ReservaWeb.UserController do
 
   def create(conn, %{"user" => user_params = %{"usbid" => usbid}}) do
     ^usbid = get_session(conn, :cas_user)
-    user_params_type = %{user_params | "type" => get_type(usbid)}
+    user_params_type = Map.put(user_params, "type", get_type(usbid))
     case User.create_user(user_params_type) do
       {:ok, _} ->
         redirect conn, to: Routes.page_path(conn, :index)
@@ -67,5 +67,6 @@ defmodule ReservaWeb.UserController do
     else
       Map.delete(user_params, "type")
     end
+    |> Map.delete("usbid")
   end
 end

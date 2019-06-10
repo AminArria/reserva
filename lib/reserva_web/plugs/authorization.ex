@@ -49,18 +49,14 @@ defmodule ReservaWeb.Plugs.Authorization do
 
   defp authorized?(ReservaWeb.RoomController, :new, current_user, _) do
     is_admin?(current_user)
-    true
   end
   defp authorized?(ReservaWeb.RoomController, :create, current_user, _) do
     is_admin?(current_user)
-    true
   end
   defp authorized?(ReservaWeb.RoomController, :edit, current_user, _) do
     is_member?(current_user)
-    true
   end
   defp authorized?(ReservaWeb.RoomController, :update, current_user, _) do
     is_member?(current_user)
-    true
   end
 end

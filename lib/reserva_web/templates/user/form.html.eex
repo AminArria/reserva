@@ -1,0 +1,28 @@
+<%= form_for @user, @route, fn f -> %>
+  <label>
+    USBID: <%= text_input f, :usbid, disabled: true %>
+    <%= error_tag f.errors[:usbid] %>
+  </label>
+
+  <label>
+    Tipo: <%= select f, :type, ["student", "faculty", "member", "admin"], disabled: not is_admin?(@current_user) %>
+    <%= error_tag f.errors[:type] %>
+  </label>
+
+  <label>
+    Email: <%= text_input f, :email %>
+    <%= error_tag f.errors[:email] %>
+  </label>
+
+  <label>
+    Nombre: <%= text_input f, :name %>
+    <%= error_tag f.errors[:name] %>
+  </label>
+
+  <label>
+    Telefono: <%= text_input f, :phone_number %>
+    <%= error_tag f.errors[:phone_number] %>
+  </label>
+
+  <%= submit "Submit" %>
+<% end %>
