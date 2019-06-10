@@ -10,11 +10,21 @@ defmodule ReservaWeb.Router do
   end
 
   pipeline :auth do
-    plug ReservaWeb.Plugs.CasAuthentication
+    plug ReservaWeb.Plugs.CasAuthentication, true
+    # Can't add this here due to it needing values set in controller
+    # instead we add it to all controllers in reserva_web.ex:32
+    # plug ReservaWeb.Plugs.Authorization
+  end
+
+  pipeline :auth_not_required do
+    plug ReservaWeb.Plugs.CasAuthentication, false
+    # Can't add this here due to it needing values set in controller
+    # instead we add it to all controllers in reserva_web.ex:32
+    # plug ReservaWeb.Plugs.Authorization
   end
 
   scope "/", ReservaWeb do
-    pipe_through :browser
+    pipe_through [:browser, :auth_not_required]
 
     get "/", PageController, :index
     resources "/users", UserController, only: [:new, :create]

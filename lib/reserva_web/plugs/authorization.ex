@@ -26,37 +26,32 @@ defmodule ReservaWeb.Plugs.Authorization do
     user.type == "member" or is_admin?(user)
   end
 
-  defp authorized?(ReservaWeb.UserController, :edit, current_user, %{params: %{"id" => user_id}}) do
-    cond do
-      current_user.id == String.to_integer(user_id) ->
-        true
-      is_member?(current_user) ->
-        true
-      true ->
-        false
-    end
-  end
-  defp authorized?(ReservaWeb.UserController, :update, current_user, %{params: %{"id" => user_id}}) do
-    cond do
-      current_user.id == String.to_integer(user_id) ->
-        true
-      is_member?(current_user) ->
-        true
-      true ->
-        false
-    end
+  # Authorization logic
+  defp authorized?(ReservaWeb.PageController, _, _, _) do
+    true
   end
 
-  defp authorized?(ReservaWeb.RoomController, :new, current_user, _) do
+  defp authorized?(ReservaWeb.UserController, action, current_user, %{params: %{"id" => user_id}}) when action in [:edit, :update] do
+    cond do
+      current_user.id == String.to_integer(user_id) ->
+        true
+      is_member?(current_user) ->
+        true
+      true ->
+        false
+    end
+  end
+  defp authorized?(ReservaWeb.UserController, action, _, _) when action in [:login, :new, :create] do
+    true
+  end
+
+  defp authorized?(ReservaWeb.RoomController, action, current_user, _) when action in [:new, :create] do
     is_admin?(current_user)
   end
-  defp authorized?(ReservaWeb.RoomController, :create, current_user, _) do
-    is_admin?(current_user)
-  end
-  defp authorized?(ReservaWeb.RoomController, :edit, current_user, _) do
+  defp authorized?(ReservaWeb.RoomController, action, current_user, _) when action in [:edit, :update] do
     is_member?(current_user)
   end
-  defp authorized?(ReservaWeb.RoomController, :update, current_user, _) do
-    is_member?(current_user)
+  defp authorized?(ReservaWeb.RoomController, :index, _, _) do
+    true
   end
 end

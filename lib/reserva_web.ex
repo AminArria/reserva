@@ -27,6 +27,9 @@ defmodule ReservaWeb do
       import Plug.Conn
       import ReservaWeb.Gettext
       alias ReservaWeb.Router.Helpers, as: Routes
+
+      # Authorization plug
+      plug ReservaWeb.Plugs.Authorization
     end
   end
 

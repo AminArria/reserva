@@ -2,4 +2,11 @@
   <h1>Reserva</h1>
 </section>
 
-<a href=<%="https://secure.dst.usb.ve/login?service=#{Routes.user_url(@conn, :login)}"%>>Iniciar Sesion</a>
+<p><%= link "Salas", to: Routes.room_path(@conn, :index) %></p>
+
+<%= if @current_user do %>
+  <p><%= link "Mi Usuario", to: Routes.user_path(@conn, :edit, @current_user.id) %></p>
+<% else %>
+  <p><%= link "Iniciar Sesion", to: "https://secure.dst.usb.ve/login?service=#{Routes.user_url(@conn, :login)}" %></p>
+<% end %>
+

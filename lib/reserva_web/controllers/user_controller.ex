@@ -2,8 +2,6 @@ defmodule ReservaWeb.UserController do
   use ReservaWeb, :controller
   alias Reserva.User
 
-  plug ReservaWeb.Plugs.Authorization when action in [:edit, :update]
-
   def login(conn, _params) do
     redirect conn, to: Routes.page_path(conn, :index)
   end
