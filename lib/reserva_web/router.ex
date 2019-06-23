@@ -29,6 +29,7 @@ defmodule ReservaWeb.Router do
     get "/", PageController, :index
     resources "/users", UserController, only: [:new, :create]
     resources "/rooms", RoomController, only: [:index]
+    resources "/subjects", SubjectController, only: [:index]
   end
 
   scope "/", ReservaWeb do
@@ -37,5 +38,6 @@ defmodule ReservaWeb.Router do
     get "/login", UserController, :login
     resources "/users", UserController, only: [:edit, :update]
     resources "/rooms", RoomController, only: [:new, :create, :edit, :update]
+    resources "/subjects", SubjectController, only: [:new, :create, :edit, :update]
   end
 end

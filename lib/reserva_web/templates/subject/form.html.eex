@@ -1,0 +1,14 @@
+<%= form_for @subject, @route, fn f -> %>
+
+  <label>
+    Nombre: <%= text_input f, :name %>
+    <%= error_tag f.errors[:name] %>
+  </label>
+
+  <label>
+    Codigo: <%= text_input f, :code %>
+    <%= error_tag f.errors[:code] %>
+  </label>
+
+  <%= submit "Guardar" %>
+<% end %>

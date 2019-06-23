@@ -1,0 +1,11 @@
+<h1>Materias</h1>
+
+<%= link "Crear Materia", to: Routes.subject_path(@conn, :new) %>
+
+<%= for subject <- @subjects do %>
+  <p>
+    <span>Codigo: <%= subject.code %></span>
+    <span>Nombre: <%= subject.name %></span>
+    <%= link "editar", to: Routes.subject_path(@conn, :edit, subject.id) %>
+  </p>
+<% end %>

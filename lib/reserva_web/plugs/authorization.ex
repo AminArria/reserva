@@ -26,11 +26,23 @@ defmodule ReservaWeb.Plugs.Authorization do
     user.type == "member" or is_admin?(user)
   end
 
-  # Authorization logic
+  def is_faculty?(user) do
+    user.type == "faculty" or is_member?(user)
+  end
+
+  def is_student?(user) do
+    user.type == "student" or is_faculty?(user)
+  end
+
+  ## Authorization logic
+  ##########################
+  # PageController permissions
   defp authorized?(ReservaWeb.PageController, _, _, _) do
     true
   end
 
+  ##########################
+  # UserController permissions
   defp authorized?(ReservaWeb.UserController, action, current_user, %{params: %{"id" => user_id}}) when action in [:edit, :update] do
     cond do
       current_user.id == String.to_integer(user_id) ->
@@ -45,6 +57,8 @@ defmodule ReservaWeb.Plugs.Authorization do
     true
   end
 
+  ##########################
+  # RoomController permissions
   defp authorized?(ReservaWeb.RoomController, action, current_user, _) when action in [:new, :create] do
     is_admin?(current_user)
   end
@@ -52,6 +66,18 @@ defmodule ReservaWeb.Plugs.Authorization do
     is_member?(current_user)
   end
   defp authorized?(ReservaWeb.RoomController, :index, _, _) do
+    true
+  end
+
+  ##########################
+  # SubjectController permissions
+  defp authorized?(ReservaWeb.SubjectController, action, current_user, _) when action in [:new, :create] do
+    is_student?(current_user)
+  end
+  defp authorized?(ReservaWeb.SubjectController, action, current_user, _) when action in [:edit, :update] do
+    is_member?(current_user)
+  end
+  defp authorized?(ReservaWeb.SubjectController, :index, _, _) do
     true
   end
 end
