@@ -1,0 +1,14 @@
+<h1>Trimestres</h1>
+
+<%= link "Crear Trimestre", to: Routes.trimester_path(@conn, :new) %>
+
+<%= for trimester <- @trimesters do %>
+  <hr>
+  <h3><%= trimester.name %></h3>
+  <p><%= link "Editar", to: Routes.trimester_path(@conn, :edit, trimester.id) %></p>
+  <p>Semanas: <%= trimester.weeks %>
+  <p>Bloque inicio: <%= trimester.start_hour %>
+  <p>Bloque fin: <%= trimester.end_hour %>
+  <p>Fecha inicio: <%= display_date(trimester.start_date) %>
+  <p>Fecha fin: <%= display_date(trimester.end_date) %>
+<% end %>

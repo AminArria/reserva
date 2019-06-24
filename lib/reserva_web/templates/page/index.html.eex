@@ -4,6 +4,7 @@
 
 <p><%= link "Salas", to: Routes.room_path(@conn, :index) %></p>
 <p><%= link "Materias", to: Routes.subject_path(@conn, :index) %></p>
+<p><%= link "Trimestres", to: Routes.trimester_path(@conn, :index) %></p>
 
 <%= if @current_user do %>
   <p><%= link "Mi Usuario", to: Routes.user_path(@conn, :edit, @current_user.id) %></p>

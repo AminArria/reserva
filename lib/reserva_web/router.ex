@@ -30,6 +30,7 @@ defmodule ReservaWeb.Router do
     resources "/users", UserController, only: [:new, :create]
     resources "/rooms", RoomController, only: [:index]
     resources "/subjects", SubjectController, only: [:index]
+    resources "/trimester", TrimesterController, only: [:index]
   end
 
   scope "/", ReservaWeb do
@@ -39,5 +40,6 @@ defmodule ReservaWeb.Router do
     resources "/users", UserController, only: [:edit, :update]
     resources "/rooms", RoomController, only: [:new, :create, :edit, :update]
     resources "/subjects", SubjectController, only: [:new, :create, :edit, :update]
+    resources "/trimester", TrimesterController, only: [:new, :create, :edit, :update]
   end
 end

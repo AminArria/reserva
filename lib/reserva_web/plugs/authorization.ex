@@ -80,4 +80,13 @@ defmodule ReservaWeb.Plugs.Authorization do
   defp authorized?(ReservaWeb.SubjectController, :index, _, _) do
     true
   end
+
+  ##########################
+  # TrimesterController permissions
+  defp authorized?(ReservaWeb.TrimesterController, action, current_user, _) when action in [:new, :create, :edit, :update] do
+    is_admin?(current_user)
+  end
+  defp authorized?(ReservaWeb.TrimesterController, :index, _, _) do
+    true
+  end
 end

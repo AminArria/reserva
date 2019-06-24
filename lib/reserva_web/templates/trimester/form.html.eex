@@ -1,0 +1,34 @@
+<%= form_for @trimester, @route, fn f -> %>
+
+  <label>
+    Nombre: <%= text_input f, :name %>
+    <%= error_tag f.errors[:name] %>
+  </label>
+
+  <label>
+    Cantidad de semanas: <%= number_input f, :weeks %>
+    <%= error_tag f.errors[:weeks] %>
+  </label>
+
+  <label>
+    Bloque inicio: <%= number_input f, :start_hour %>
+    <%= error_tag f.errors[:start_hour] %>
+  </label>
+
+  <label>
+    Bloque fin: <%= number_input f, :end_hour %>
+    <%= error_tag f.errors[:end_hour] %>
+  </label>
+
+  <label>
+    Fecha inicio: <%= date_select f, :start_date %>
+    <%= error_tag f.errors[:start_date] %>
+  </label>
+
+  <label>
+    Fecha fin: <%= date_select f, :end_date %>
+    <%= error_tag f.errors[:end_date] %>
+  </label>
+
+  <%= submit "Enviar" %>
+<% end %>
