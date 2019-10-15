@@ -2,6 +2,7 @@ defmodule Reserva.User do
   use Ecto.Schema
   import Ecto.Changeset
   alias Reserva.{Repo, User}
+  alias Reserva.Reservation.MacroReservation
 
   schema "users" do
     field :usbid, :string
@@ -9,6 +10,9 @@ defmodule Reserva.User do
     field :name, :string
     field :email, :string
     field :phone_number, :string
+
+    has_many :reservations, MacroReservation, foreign_key: :reserver_id
+    has_many :approved_reservations, MacroReservation, foreign_key: :approver_id
 
     timestamps()
   end

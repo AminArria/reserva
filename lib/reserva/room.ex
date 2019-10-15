@@ -2,6 +2,7 @@ defmodule Reserva.Room do
   use Ecto.Schema
   import Ecto.{Changeset, Query}
   alias Reserva.{Repo, Room}
+  alias Reserva.Reservation.MacroReservation
 
   schema "rooms" do
     field :active, :boolean, default: true
@@ -11,6 +12,8 @@ defmodule Reserva.Room do
     field :location, :string
     field :name, :string
     field :unavailable_computers_amount, :integer, default: 0
+
+    has_many :reservations, MacroReservation
 
     timestamps()
   end

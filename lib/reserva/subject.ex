@@ -2,10 +2,13 @@ defmodule Reserva.Subject do
   use Ecto.Schema
   import Ecto.Changeset
   alias Reserva.{Repo, Subject}
+  alias Reserva.Reservation.MacroReservation
 
   schema "subjects" do
     field :code, :string
     field :name, :string
+
+    has_many :reservations, MacroReservation
 
     timestamps()
   end

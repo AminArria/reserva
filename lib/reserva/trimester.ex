@@ -2,7 +2,7 @@ defmodule Reserva.Trimester do
   use Ecto.Schema
   import Ecto.{Changeset, Query}
   alias Reserva.{Repo, Trimester}
-
+  alias Reserva.Reservation.MacroReservation
 
   schema "trimesters" do
     field :name, :string
@@ -11,6 +11,8 @@ defmodule Reserva.Trimester do
     field :end_hour, :integer, default: 12
     field :start_date, :utc_datetime, default: DateTime.utc_now()
     field :end_date, :utc_datetime,default: DateTime.add(DateTime.utc_now(), 12*7*24*60*60)
+
+    has_many :reservations, MacroReservation
 
     timestamps()
   end
