@@ -13,10 +13,11 @@ defmodule ReservaWeb.UserController do
     render conn, "new.html", user: user
   end
 
-  def create(conn, %{"user" => user_params = %{"usbid" => usbid}}) do
-    ^usbid = get_session(conn, :cas_user)
-    user_params_type = Map.put(user_params, "type", get_type(usbid))
-    case User.create_user(user_params_type) do
+  def create(conn, %{"user" => user_params}) do
+    usbid = get_session(conn, :cas_user)
+    usbid_params = %{"usbid" => usbid, "type" => get_type(usbid)}
+    full_user_params = Map.merge(user_params, usbid_params)
+    case User.create_user(full_user_params) do
       {:ok, _} ->
         redirect conn, to: Routes.page_path(conn, :index)
       {:error, changeset} ->

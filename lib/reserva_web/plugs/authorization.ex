@@ -18,18 +18,22 @@ defmodule ReservaWeb.Plugs.Authorization do
     end
   end
 
+  def is_admin?(nil), do: false
   def is_admin?(user) do
     user.type == "admin"
   end
 
+  def is_member?(nil), do: false
   def is_member?(user) do
     user.type == "member" or is_admin?(user)
   end
 
+  def is_faculty?(nil), do: false
   def is_faculty?(user) do
     user.type == "faculty" or is_member?(user)
   end
 
+  def is_student?(nil), do: false
   def is_student?(user) do
     user.type == "student" or is_faculty?(user)
   end
@@ -89,4 +93,13 @@ defmodule ReservaWeb.Plugs.Authorization do
   defp authorized?(ReservaWeb.TrimesterController, :index, _, _) do
     true
   end
+
+  ##########################
+  # ReservationController permissions
+  defp authorized?(ReservaWeb.ReservationController, action, current_user, _) when action in [:new, :create] do
+    is_student?(current_user)
+  end
+  # defp authorized?(ReservaWeb.ReservationController, :index, _, _) do
+  #   true
+  # end
 end

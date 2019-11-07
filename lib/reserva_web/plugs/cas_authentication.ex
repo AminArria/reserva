@@ -30,20 +30,24 @@ defmodule ReservaWeb.Plugs.CasAuthentication do
     end
   end
 
+  # def call(conn, false) do
+  #   assign(conn, :current_user, nil)
+  # end
+
   def call(conn, required) do
     case get_session(conn, :cas_user) do
+      nil when required ->
+        Phoenix.Controller.redirect(conn, external: "https://secure.dst.usb.ve/login?service=#{req_full_url(conn)}")
+        |> halt
       nil ->
-        if required do
-          Phoenix.Controller.redirect(conn, external: "https://secure.dst.usb.ve/login?service=#{req_full_url(conn)}")
-          |> halt
-        else
-          assign(conn, :current_user, nil)
-        end
+        assign(conn, :current_user, nil)
       usbid ->
         case Repo.get_by(User, usbid: usbid) do
-          nil ->
+          nil when required ->
             Phoenix.Controller.redirect(conn, to: Routes.user_path(conn, :new))
             |> halt
+          nil ->
+            assign(conn, :current_user, nil)
           current_user ->
             assign(conn, :current_user, current_user)
         end
